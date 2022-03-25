@@ -14,5 +14,5 @@ git init
 git add .
 git commit -m "message"
 git status  
-git diff -
+git diff
 git diff --color-words
