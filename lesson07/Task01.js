@@ -15,4 +15,4 @@ const filter = (allStudents, failedStudents) => {
 const allStudents = ['Ivanov', 'Petrov', 'Sidorov', 'Kuznetsov', 'Smirnoff', 'Popov', 'Sokolov'];
 const failedStudents = ['Sidorov', 'Smirnoff', 'Popov'];
 
-console.log(filter(allStudents, failedStudents));
+console.log('Прошедшие студенты:', filter(allStudents, failedStudents));
