@@ -1,7 +1,7 @@
 'use strict';
 
 {
-    const rain = Math.round(Math.random);
+    const rain = Math.round(Math.random());
     if (rain === 1) {
         console.log('Пошёл дождь. Возьмите зонт!');
     }
@@ -21,5 +21,15 @@
         console.log('Поздравляю, вы поступили на бюджет!');
     } else {
         console.log('К сожалению, вы не поступили на бюджет!')
+    }
+}
+
+{
+    const value = prompt('Укажите сумму денег которые вы хотите снять');
+
+    if (value >= 100 && value % 100 === 0) {
+        console.log('Банкомат сможет выдать вам такую сумму!');
+    } else {
+        console.log('Банкомат не сможет выдать вам такую сумму!');
     }
 }
