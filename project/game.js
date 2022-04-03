@@ -7,8 +7,8 @@
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
-  const compGuess = (count) => {
-    return count % 2 === getRandomIntInclusive(0, 1) ? 1 : -1;
+  const oddOrEven = (count, guess = getRandomIntInclusive(0, 1)) => {
+    return count % 2 === guess ? 1 : -1;
   };
 
   const showResult = (count) => {
@@ -17,21 +17,45 @@
 Бот: ${count.computer}`);
   };
 
+  const getHumanInput = (count) => {
+    return Math.floor(Number(prompt(`загадай число от 1 до ${count.player}`)));
+  };
+
+  const getCompInput = (count) => {
+    return getRandomIntInclusive(1, count.computer);
+  };
+
   const game = () => {
     const count = {
       player: 5,
       computer: 5,
     };
+    const human = {
+      turn: true,
+    };
+
+    const recalculate = (marbleCount, r) => {
+      const coef = oddOrEven(marbleCount, r);
+      count.computer += marbleCount * coef;
+      count.player -= marbleCount * coef;
+    };
 
     return function start() {
       console.log('Старт игры');
       while (true) {
-        const marbleCount = Math.floor(Number(prompt(`загадай число от 1-го
-до количества имеющихся у тебя шариков (${count.player})`)));
-        if (marbleCount > count.player || marbleCount < 1) continue;
-
-        count.computer += marbleCount * compGuess(marbleCount);
-        count.player -= marbleCount * compGuess(marbleCount);
+        if (human.turn) {
+          const marbleCount = getHumanInput(count);
+          if (marbleCount > count.player || marbleCount < 1) continue;
+          recalculate(marbleCount);
+        } else {
+          const marbleCount = getCompInput(count);
+          if (confirm('Число четное?')) {
+            recalculate(marbleCount, 0);
+          } else {
+            alert('Значит нечетное');
+            recalculate(marbleCount, 1);
+          }
+        }
 
         showResult(count);
 
@@ -40,6 +64,8 @@
 'Бот' : 'Игрок'} проиграл.`);
           break;
         }
+
+        human.turn = !human.turn;
       }
     };
   };
